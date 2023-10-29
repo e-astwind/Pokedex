@@ -1,0 +1,93 @@
+import { View, Text, StyleSheet, TextInput, FlatList } from "react-native";
+import React, { useEffect, useState } from "react";
+import { EvilIcons } from "@expo/vector-icons";
+import { getPokemon } from "../../services/pokeApi";
+import CardPokemon from "../../components/CardPokemon";
+
+type Pokemon = {
+  id: string;
+  name: string;
+  types: [
+    {
+      slot: string;
+      type: {
+        name: string;
+        url: string;
+      };
+    }
+  ];
+  imgUrl: string;
+};
+
+export default function Home() {
+  const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+
+  const fetchPokemon = async () => {
+    const data = await getPokemon("0");
+    setPokemon(data);
+  };
+
+  useEffect(() => {
+    fetchPokemon();
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.inputSearchPokemon}
+          placeholder="Procurar Pókemon..."
+        />
+        <EvilIcons
+          style={styles.searchIcon}
+          name="search"
+          size={29}
+          color="#000"
+        />
+      </View>
+      <View style={styles.pokemonListContainer}>
+        <FlatList
+          data={pokemon}
+          keyExtractor={(pokemon) => pokemon.name}
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+          renderItem={({ item }) => <CardPokemon {...item} />}
+        />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputContainer: {
+    width: "100%",
+    height: 90,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#CCCCCC",
+  },
+  inputSearchPokemon: {
+    backgroundColor: "#fff",
+    height: 56,
+    borderWidth: 0.5,
+    borderColor: "#CCCCCC",
+    width: "90%",
+    borderRadius: 12,
+    paddingHorizontal: 38,
+  },
+  searchIcon: {
+    position: "absolute",
+    alignSelf: "center",
+    left: 28,
+  },
+  pokemonListContainer: {
+    flex: 1,
+  },
+});
