@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   img: {
-    width: 55,
-    height: 55,
+    width: 95,
+    height: 95,
   },
   imgContainer: {
     height: "100%",

@@ -30,7 +30,7 @@ export const getPokemon = async (): Promise<PokemonDataProps> => {
       const { data } = await axios.get(pokemon.url);
 
       const { id, name, types } = data;
-      const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+      const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
 
       return {
         id,
