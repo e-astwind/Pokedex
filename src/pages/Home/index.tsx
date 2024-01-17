@@ -4,7 +4,7 @@ import { EvilIcons } from "@expo/vector-icons";
 import { PokemonDataProps, getPokemon } from "../../services/pokeApi";
 import CardPokemon from "../../components/CardPokemon";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [pokemon, setPokemon] = useState<PokemonDataProps[]>([]);
 
   const fetchPokemon = async () => {
@@ -34,8 +34,10 @@ export default function Home() {
         <FlatList
           data={pokemon}
           ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-          renderItem={({ item }) => <CardPokemon {...item} />}
-          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <CardPokemon {...item} navigation={navigation} />
+          )}
+          keyExtractor={(item) => `pokemon-Card${item.id}`}
         />
       </View>
     </View>

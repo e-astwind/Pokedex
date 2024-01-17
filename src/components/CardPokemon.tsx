@@ -11,33 +11,52 @@ import { colors } from "../global/colors";
 import * as pokeTypeImgPath from "../global/pokeTypeImgPath";
 import * as globalizationName from "../utils/globalizationName";
 import { PokemonDataProps } from "../services/pokeApi";
-
+import { formatId, formatName } from "../utils/formats";
+interface CardPokemonProps extends PokemonDataProps {
+  navigation: any;
+}
 const { width } = Dimensions.get("window");
 export default function CardPokemon({
   id,
   name,
   types,
   imgUrl,
-}: PokemonDataProps) {
-  const formatId = (id: number) => {
-    if (id < 10) return `00${id}`;
-    if (id < 100) return `0${id}`;
-    return id;
-  };
-
-  const formatName = (name: string) => {
-    return name.charAt(0).toUpperCase() + name.slice(1);
+  animationImg,
+  abilities,
+  height,
+  weight,
+  sentence,
+  navigation,
+}: CardPokemonProps) {
+  const onPress = () => {
+    navigation.navigate("PokemonDetail", {
+      id,
+      name,
+      types,
+      imgUrl,
+      animationImg,
+      color: colors.types[types[0].type.name],
+      abilities,
+      height,
+      weight,
+      sentence,
+    });
   };
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      key={`pokemon-Component-Card${id}`}
+      onPress={() => onPress()}
+      style={styles.container}
+    >
       <View style={styles.verticalContainer}>
         <Text style={styles.idText}>{"N°" + formatId(id)}</Text>
         <Text style={styles.nameText}>{formatName(name)}</Text>
         <View style={styles.horizontalContainer}>
-          {types.map((type) => {
+          {types.map((type, index) => {
             return (
               <View
+                key={`type-${index}`}
                 style={[
                   styles.typeContainer,
                   {

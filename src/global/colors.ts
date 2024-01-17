@@ -2,7 +2,7 @@ export const colors = {
   types: {
     water: "#5090D6",
     dragon: "#0B6DC3",
-    eletric: "#F4D23C",
+    electric: "#F4D23C",
     fairy: "#EC8FE6",
     ghost: "#5269AD",
     fire: "#FF9D55",
