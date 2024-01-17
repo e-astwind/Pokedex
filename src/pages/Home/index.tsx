@@ -9,7 +9,6 @@ export default function Home() {
 
   const fetchPokemon = async () => {
     const data: any = await getPokemon();
-
     setPokemon(data);
   };
 

@@ -21,12 +21,8 @@ const pokeApi = axios.create({
   baseURL: "https://pokeapi.co/api/v2",
 });
 
-export const getPokemon = async (
-  offset?: string
-): Promise<PokemonDataProps> => {
-  const { data } = await pokeApi.get(
-    `/pokemon?offset=${offset ?? "300"}&limit=5`
-  );
+export const getPokemon = async (): Promise<PokemonDataProps> => {
+  const { data } = await pokeApi.get(`/pokemon?offset=0&limit=80`);
   const { results } = data;
 
   const pokemons: any = await Promise.all(

@@ -9,6 +9,7 @@ import {
 import React from "react";
 import { colors } from "../global/colors";
 import * as pokeTypeImgPath from "../global/pokeTypeImgPath";
+import * as globalizationName from "../utils/globalizationName";
 import { PokemonDataProps } from "../services/pokeApi";
 
 const { width } = Dimensions.get("window");
@@ -46,7 +47,7 @@ export default function CardPokemon({
               >
                 <View
                   style={{
-                    padding: 7,
+                    padding: 4,
                     backgroundColor: "#FFF",
                     borderRadius: 25,
                   }}
@@ -57,7 +58,7 @@ export default function CardPokemon({
                   />
                 </View>
                 <Text style={styles.typeText}>
-                  {formatName(type.type.name)}
+                  {formatName(globalizationName[type.type.name])}
                 </Text>
               </View>
             );
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: width * 0.9,
     borderRadius: 10,
-    height: 110,
+    height: 120,
   },
   verticalContainer: {
     padding: 10,
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
   },
   imgContainer: {
     height: "100%",
-    width: "36%",
+    width: "32%",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
   typeContainer: {
     padding: 5,
     flexDirection: "row",
-    gap: 2,
+    gap: 4,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 10,
