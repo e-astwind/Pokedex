@@ -8,32 +8,19 @@ import {
 } from "react-native";
 import React from "react";
 import { colors } from "../global/colors";
+import * as pokeTypeImgPath from "../global/pokeTypeImgPath";
+import { PokemonDataProps } from "../services/pokeApi";
 
-type CardPokemonProps = {
-  id: string;
-  name: string;
-  types: [
-    {
-      slot: string;
-      type: {
-        name: string;
-        url: string;
-      };
-    }
-  ];
-  imgUrl: string;
-};
 const { width } = Dimensions.get("window");
 export default function CardPokemon({
   id,
   name,
   types,
   imgUrl,
-}: CardPokemonProps) {
-  const formatId = (id: string) => {
-    const idNumber = parseInt(id);
-    if (idNumber < 10) return `00${idNumber}`;
-    if (idNumber < 100) return `0${idNumber}`;
+}: PokemonDataProps) {
+  const formatId = (id: number) => {
+    if (id < 10) return `00${id}`;
+    if (id < 100) return `0${id}`;
     return id;
   };
 
@@ -64,17 +51,11 @@ export default function CardPokemon({
                     borderRadius: 25,
                   }}
                 >
-                  {/* <Image
+                  <Image
                     style={styles.typeImg}
-                    source={require(dinamycUrl())}
-
-                    //source={require(url)}
-                    //   source={{
-                    //     uri: `../assets/types/${type.type.name}.png`,
-                    //   }}
-                  /> */}
+                    source={pokeTypeImgPath[type.type.name]}
+                  />
                 </View>
-
                 <Text style={styles.typeText}>
                   {formatName(type.type.name)}
                 </Text>

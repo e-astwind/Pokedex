@@ -1,29 +1,15 @@
-import { View, Text, StyleSheet, TextInput, FlatList } from "react-native";
+import { View, StyleSheet, TextInput, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { EvilIcons } from "@expo/vector-icons";
-import { getPokemon } from "../../services/pokeApi";
+import { PokemonDataProps, getPokemon } from "../../services/pokeApi";
 import CardPokemon from "../../components/CardPokemon";
 
-type Pokemon = {
-  id: string;
-  name: string;
-  types: [
-    {
-      slot: string;
-      type: {
-        name: string;
-        url: string;
-      };
-    }
-  ];
-  imgUrl: string;
-};
-
 export default function Home() {
-  const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+  const [pokemon, setPokemon] = useState<PokemonDataProps[]>([]);
 
   const fetchPokemon = async () => {
-    const data = await getPokemon("0");
+    const data: any = await getPokemon();
+
     setPokemon(data);
   };
 
@@ -48,9 +34,9 @@ export default function Home() {
       <View style={styles.pokemonListContainer}>
         <FlatList
           data={pokemon}
-          keyExtractor={(pokemon) => pokemon.name}
           ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
           renderItem={({ item }) => <CardPokemon {...item} />}
+          keyExtractor={(item) => item.id.toString()}
         />
       </View>
     </View>
